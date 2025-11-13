@@ -56,7 +56,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                     <a class="btn btn-primary btn-lg m-2" href="#projects" role="button">Create Folder
                         <?php  ?>
                     </a>
-                    <a class="btn btn-primary btn-lg m-2" href="#projects" role="button">Upload File</a>
+                    <input class="btn btn-primary btn-lg m-2" href="#projects" role="button">Upload File</input>
                 </div>
             </div>
         </div>
