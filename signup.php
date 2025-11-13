@@ -1,0 +1,165 @@
+<?php
+ob_start();
+session_start();
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>signup</title>
+    <link rel="stylesheet" href="style1.css" />
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-box">
+            <h2>Sign Up</h2>
+            <p>
+                Sign up with with your simple details it will be cross checked by the
+                adminstration
+            </p>
+            <h2>Sign In</h2>
+            <p style="padding-bottom: 200px">
+                Sign In with with your username and password
+            </p>
+        </div>
+        <div class="loginbox">
+            <div class="loginForm">
+                <form novalidate>
+                    <label for="name">Name:</label>
+                    <input
+                        id="name"
+                        class="name form-control"
+                        pattern="^[a-zA-Z]*$"
+                        type="text"
+                        placeholder="username"
+                        required
+                        autocomplete="name" />
+
+                    <label for="pass"> Password: </label>
+                    <input
+                        id="pass"
+                        class="pass form-control"
+                        type="password"
+                        minlength="7"
+                        maxlength="12"
+                        placeholder="Password"
+                        required
+                        autocomplete="new-password" />
+
+                    <label for="address form-control">Address:</label>
+                    <input
+                        id="address"
+                        class="address form-control"
+                        type="text"
+                        placeholder="address"
+                        autocomplete="address"
+                        required />
+
+                    <label for="country">Country:</label>
+                    <select
+                        id="country"
+                        class="country"
+                        style="width: 70%; height: 25px"
+                        autocomplete="country"
+                        required>
+                        <option>country</option>
+                        <option>jordan</option>
+                        <option>ksa</option>
+                        <option>qatar</option>
+                        <option>egypt</option>
+                    </select>
+
+                    <label for="code">ZIP Code:</label>
+                    <input
+                        id="code"
+                        class="code form-control"
+                        type="number"
+                        placeholder="ZIP Code"
+                        required
+                        autocomplete="postal-code" />
+
+                    <label for="email">Email:</label>
+                    <input
+                        id="email"
+                        class="email form-control"
+                        type="email"
+                        placeholder="email"
+                        required
+                        autocomplete="email" />
+
+                    <label class="sex">Sex:
+                        <label>
+                            <input
+                                name="sex"
+                                type="radio"
+                                value="male"
+                                style="height: auto" />
+                            Male</label>
+                        <label>
+                            <input
+                                name="sex"
+                                type="radio"
+                                value="female"
+                                style="height: auto" />
+                            Female</label>
+                    </label>
+                    <label>Language:
+                        <label><input
+                                name="checkbox"
+                                type="checkbox"
+                                id="english"
+                                value="english" />
+                            English</label>
+                        <label>
+                            <input
+                                name="checkbox"
+                                type="checkbox"
+                                id="nonEnglish"
+                                name="nonEnglish"
+                                value="Bike" />
+                            Non English</label>
+                    </label>
+
+                    <label for="about form-control">About:</label>
+                    <textarea
+                        id="about"
+                        class="about"
+                        type="text"
+                        placeholder="about"></textarea>
+
+                    <div class="invalid-feedback"></div>
+                    <div class="valid-feedback"></div>
+
+                    <button
+                        onclick="addNewUser();"
+                        style="background-color: green; color: white"
+                        name="signup"
+                        type="submit">
+                        Signup
+                    </button>
+                </form>
+                or
+                <a href="login.php"><button>login</button></a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", (e) => {
+            if (!form.checkValidity()) {
+                e.preventDefault();
+            }
+            form.classList.add("was-validated");
+        });
+    </script>
+</body>
+
+</html>
