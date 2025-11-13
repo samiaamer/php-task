@@ -1,35 +1,53 @@
-function usersinfo() {
-  let username = document.getElementById("name").value;
-  let password = document.getElementById("password").value;
-  let email = document.getElementById("password").value;
+const users = [
+  {
+    name: "person1",
+    Email: "person1@ex.com",
+    pass: "1234",
+    address: "amman",
+    country: "jordan",
+    code: "123",
+    sex: "male",
+    language: "english",
+    about: "",
+  },
+  {
+    name: "person2",
+    Email: "person2@ex.com",
+    pass: "abcd",
+    address: "amman",
+    country: "jordan",
+    code: "123",
+    sex: "female",
+    language: "nonEnglish",
+    about: "",
+  },
+];
 
-  let isValid = true;
+function usersinfo() { 
+  let loggedIn = false;
+  const nameElement = document.querySelector(".name");
+  const name = nameElement.value;
 
-  if (username === "") {
-    document.getElementById("nameErr").textContent = "Username is required.";
-    isValid = false;
-  } else {
-    document.getElementById("nameErr").textContent = "";
+  const EmailElement = document.querySelector(".email");
+  const Email = EmailElement.value;
+
+  const passElement = document.querySelector(".pass");
+  const pass = passElement.value;
+
+  for (let i = 0; i < users.length; i++) {
+    if (
+      name === users[i].name &&
+      pass === users[i].pass &&
+      Email === users[i].Email
+    ) {
+      loggedIn = true;
+
+     
+      break;
+    }
+    if (i == users.length - 1) {
+      // alert("faild");
+      // document.getElementById("alert").innerHTML("check uername, password or email");
+    }
   }
-
-  if (email === "") {
-    document.getElementById("emailErr").textContent = "Email is required.";
-    isValid = false;
-  } else {
-    document.getElementById("emailErr").textContent = "";
-  }
-
-  if (password === "") {
-    document.getElementById("passErr").textContent = "Password is required.";
-    isValid = false;
-  } else if (password.length < 6) {
-    document.getElementById("passErr").textContent =
-      "Password must be at least 6 characters long.";
-    isValid = false;
-  } else {
-    document.getElementById("passErr").textContent = "";
-  }
-
-  return isValid;
 }
-

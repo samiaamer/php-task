@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $password = $_POST["password"];
 
-        $validUsername = "testuse";
-        $validEmail = "testuser@x.x";
-        $validPasswordHash = password_hash("testpass", PASSWORD_DEFAULT);
+        $validUsername = "person1";
+        $validEmail = "person1@ex.com";
+        $validPasswordHash = password_hash("1234", PASSWORD_DEFAULT);
 
         if ($username == $validUsername && password_verify($password, $validPasswordHash) && $email == $validEmail) {
 
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="col d-flex align-items-center justify-content-center text-center  loginbox">
                 <div class="loginForm">
-                    <form id="loginForm" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" onsubmit="return usersinfo()" novalidate>
+                    <form id="loginForm" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" onsubmit="return usersinfo()" >
                         <label for="username">Name:</label>
                         <input
                             id="username"
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             placeholder="username"
                             required
                             autocomplete="name" />
-                        <span id="nameErr" class="error text-danger">*</span><br><br>
+                        <span id="nameErr" class="error text-danger"></span><br><br>
 
                         <label for="email">Email:</label>
                         <input
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             placeholder="email"
                             required
                             autocomplete="email" />
-                        <span id="emailErr" class="error text-danger">* </span><br><br>
+                        <span id="emailErr" class="error text-danger"></span><br><br>
 
                         <label for="password"> Password: </label>
                         <input
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             placeholder="*********"
                             required
                             autocomplete="new-password" />
-                        <span id="passErr" class="error text-danger">* </span><br><br>
+                        <span id="passErr" class="error text-danger"></span><br><br>
 
                         <label style="font-size: x-small" for="agree">
                             <input
@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
-                        <input name="login" type="submit" class="btn btn-primary" value="Login">
+                        <input name="login" type="submit" class="btn btn-primary" value="Login"> or <button>Sign up</button>
                     </form>
                 </div>
             </div>
