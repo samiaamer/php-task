@@ -40,6 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $passErr = "password is required";
     }
 }
+
+
+$base_dir = '/var/www/192.168.1.93/php-task/users';
+$user_dir = $base_dir . $username . '/';
+if (!is_dir($user_dir)){
+    mkdir($user_dir, 0755, true);
+}
 ?>
 
 <!DOCTYPE html>

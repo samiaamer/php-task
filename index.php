@@ -1,6 +1,10 @@
 <?php
 session_start();
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+
+
+
+
 ?>
 
 <!DOCTYPE html>
