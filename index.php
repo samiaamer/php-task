@@ -7,12 +7,6 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-if (isset($_POST['logout'])) {
-    unset($_SESSION['user']);
-    header("Location: login.php");
-    exit();
-}
-
 
 $base_dir = '/var/www/192.168.1.93/php-task/users/';
 $user_dir = $base_dir . $username . '/';
@@ -26,6 +20,43 @@ if (!is_dir($user_dir)) {
 }
 
 
+
+if (isset($_POST['uploadedFile'])) {
+
+    $uploadTo = '/var/www/192.168.1.93/php-task/users/' . $username . '/';
+    $fileName = $_FILES['uploadedFile']['name'];
+    $fileType = $_FILES['uploadedFile']['type'];
+    $fileSize = $_FILES['uploadedFile']['size'];
+    $fileError = $_FILES['uploadedFile']['error'];
+    $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+
+    if ($fileError == UPLOAD_ERR_OK) {
+        $destPath = $uploadTo . $fileName;
+        if (move_uploaded_file($fileTmpPath, $destPath)) {
+            header('Location: index.php');
+            exit();
+        }
+        echo "error uploading file<br>";
+    }
+}
+
+if (isset($_POST['createFolder'])) {
+    $base_dir = '/var/www/192.168.1.93/php-task/users/' . $username . '/';
+    $user_dir = $base_dir . $_POST['createFolder'];
+    if (!file_exists($user_dir)) {
+        if (mkdir($user_dir, 0777, true)) {
+            echo "<script type = 'text/javascript'>alert('Folder Created!');</script>";
+            header('Location: index.php');
+            exit();
+            return true;
+        } else {
+            echo "<script type = 'text/javascript'>alert('Failed to create directory');</script>";
+            header('Location: index.php');
+            exit();
+            return false;
+        }
+    }
+}
 
 ?>
 
@@ -68,7 +99,7 @@ if (!is_dir($user_dir)) {
     </nav>
 
 
-    <div style="background-color:white;height: 10vh">
+    <div style="background-color:white;height: 15vh">
         <div
             class="container">
             <div class="row pt-3">
@@ -79,12 +110,16 @@ if (!is_dir($user_dir)) {
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <form action="newFile.php" method="POST" enctype="multipart/form-data">
-                        <label for="fileUpload">Choose a file to upload:</label><br><br>
-                        <input type="file" name="uploadedFile" id="fileUpload"><br><br>
-                        <button type="submit">Upload</button>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <label for="fileUpload">Choose a file to upload:</label>
+                        <input type="file" name="uploadedFile" id="fileUpload">
+                        <button type="submit" name="uploadedFile">Upload</button>
+                    </form><br>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="createFolder" id="createFolder">
+                        <input class="btn btn-primary btn-lg m-2"  type="submit" value="Create Folder"> 
                     </form>
-                    <!-- <button type="submit"><input class="btn btn-primary btn-lg m-2" type="file" role="button"></button> -->
+
                 </div>
             </div>
         </div>
@@ -102,31 +137,22 @@ if (!is_dir($user_dir)) {
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    $jsonFile = 'data.json';
-                    $file_handler = fopen($jsonFile, 'c+');
-                    if ($file_handler) {
-                    }
+                    $handle = opendir('/var/www/192.168.1.93/php-task/users/' . $username . '/');
 
-                    if (file_exists($jsonFile)) {
-                        $jsonData = file_get_contents($jsonFile);
+                    while (($file = readdir(($handle))) !== false) {
+                        if ($file != '.' && $file != '..') {
+                            echo '<tr>';
+                            echo '<td>' . htmlspecialchars($row['name']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['type']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['added']) . '</td>';
 
-                        $data = json_decode($jsonData, true);
-
-                        if (is_array($data)) {
-                            foreach ($data as $row) {
-                                echo '<tr>';
-                                echo '<td>' . htmlspecialchars($row['name']) . '</td>';
-                                echo '<td>' . htmlspecialchars($row['type']) . '</td>';
-                                echo '<td>' . htmlspecialchars($row['added']) . '</td>';
-                                echo '</tr>';
-                            }
-                        } else {
-                            echo '<tr><td colspan="3">Error decoding JSON data.</td></tr>';
+                            echo '</tr>';
                         }
-                    } else {
-                        echo '<tr><td colspan="3">JSON file not found.</td></tr>';
                     }
                     ?>
+
+                    <button class="btn btn-primary "><a href="update.php" class="text-light">Update</a></button>
+                    <button class="btn btn-danger"><a href="delete.php" class="text-light">Delete</a></button>
                 </tbody>
             </table>
         </div>
