@@ -124,8 +124,9 @@ if (!is_dir($user_dir)){
 
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
-                        <input name="login" type="submit" class="btn btn-primary" value="Login"> or <button>Sign up</button>
-                    </form>
+                        <input name="login" type="submit" class="btn btn-primary" value="Login">
+                    </form> or
+                <a href="signup.php"><button>signup</button></a>
                 </div>
             </div>
         </div>

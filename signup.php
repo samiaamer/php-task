@@ -1,6 +1,10 @@
 <?php
-ob_start();
 session_start();
+require("register.class.php");
+
+if (isset($_POST['submit'])){
+    $user = new RegisterUser($_POST['username'], $_POST['password'], $_POST['address'], $_POST['country'], $_POST['code'], $_POST['email'], $_POST['sex'], $_POST['checkbox'], $_POST['about']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,21 +35,21 @@ session_start();
         </div>
         <div class="loginbox">
             <div class="loginForm">
-                <form novalidate>
-                    <label for="name">Name:</label>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <label for="username">Name:</label>
                     <input
-                        id="name"
-                        class="name form-control"
+                        id="username"
+                        class="username form-control"
                         pattern="^[a-zA-Z]*$"
                         type="text"
                         placeholder="username"
                         required
                         autocomplete="name" />
 
-                    <label for="pass"> Password: </label>
+                    <label for="password"> Password: </label>
                     <input
-                        id="pass"
-                        class="pass form-control"
+                        id="password"
+                        class="password form-control"
                         type="password"
                         minlength="7"
                         maxlength="12"
@@ -134,13 +138,12 @@ session_start();
                         type="text"
                         placeholder="about"></textarea>
 
-                    <div class="invalid-feedback"></div>
-                    <div class="valid-feedback"></div>
+                    <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
+                    <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
 
                     <button
-                        onclick="addNewUser();"
-                        style="background-color: green; color: white"
-                        name="signup"
+                    style="background-color: green; color: white"
+                        name="submit"
                         type="submit">
                         Signup
                     </button>
