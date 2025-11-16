@@ -14,10 +14,15 @@ if (isset($_POST['logout'])) {
 }
 
 
-$base_dir = '/var/www/192.168.1.93/php-task/users';
+$base_dir = '/var/www/192.168.1.93/php-task/users/';
 $user_dir = $base_dir . $username . '/';
 if (!is_dir($user_dir)) {
-    mkdir($user_dir, 0777, true);
+    if (mkdir($user_dir, 0777, true)) {
+        return true;
+    } else {
+        echo "Failed to create directory: " . $user_dir;
+        return false;
+    }
 }
 
 ?>
