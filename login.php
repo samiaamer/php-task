@@ -1,56 +1,16 @@
-<?php 
+<?php
 require("login.class.php");
 ?>
 
 <?php
-session_start();
-$nameErr = $emailErr = $passErr = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["email"])) {
-        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-        $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-
-        $password = $_POST["password"];
-
-        $validUsername = "person1";
-        $validEmail = "person1@ex.com";
-        $validPasswordHash = password_hash("1234", PASSWORD_DEFAULT);
-
-        if ($username == $validUsername && password_verify($password, $validPasswordHash) && $email == $validEmail) {
-
-            $_SESSION["username"] = $username;
-            $_SESSION["password"] = $password;
-            $_SESSION["email"] = $email;
-            header("Location: index.php");
-        } else {
-            if ($username == $validUsername)
-                $nameErr = "check uername";
-            elseif (!password_verify($password, $validPasswordHash))
-                $passErr = "check password";
-            elseif ($email == $validEmail)
-                $emailErr = "check email";
-        }
-
-    } elseif (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["email"])) {
-
-        if (empty($_POST["username"]))
-            $nameErr = "Name is required";
-
-        elseif (empty($_POST["email"]))
-            $emailErr = "Email is required";
-
-        elseif (empty($_POST["password"]))
-            $passErr = "password is required";
-    }
+if (isset($_POST['submit'])) {
+    $user = new LoginUser($_POST['username'], $_POST['password'], $_POST['email']);
+    
 }
 
 
-$base_dir = '/var/www/192.168.1.93/php-task/users';
-$user_dir = $base_dir . $username . '/';
-if (!is_dir($user_dir)){
-    mkdir($user_dir, 0755, true);
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +42,7 @@ if (!is_dir($user_dir)){
             </div>
             <div class="col d-flex align-items-center justify-content-center text-center  loginbox">
                 <div class="loginForm">
-                    <form id="loginForm" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" onsubmit="return usersinfo()" >
+                    <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
                         <label for="username">Name:</label>
                         <input
                             id="username"
@@ -128,9 +88,9 @@ if (!is_dir($user_dir)){
 
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
-                        <input name="login" type="submit" class="btn btn-primary" value="Login">
+                        <input name="submit" type="submit" class="btn btn-primary" value="Login">
                     </form> or
-                <a href="signup.php"><button>signup</button></a>
+                    <a href="signup.php"><button>signup</button></a>
                 </div>
             </div>
         </div>
