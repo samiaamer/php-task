@@ -9,9 +9,9 @@ class RegisterUser
     private $sex;
     private $checkbox;
     private $about;
-    private $raw_passowrd;
+    private $raw_password;
     private $encrypted_password;
-    private $storage;
+    private $storage = 'data.json';
     private $stored_users;
     private $new_user;
     public $valid_feedback;
@@ -25,10 +25,11 @@ class RegisterUser
         $this->country = filter_input(INPUT_POST, "country", FILTER_SANITIZE_SPECIAL_CHARS);
         $this->code = filter_input(INPUT_POST, "code", FILTER_SANITIZE_NUMBER_INT);
         $this->about = filter_input(INPUT_POST, "about", FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->checkbox = filter_input(INPUT_POST, "checkbox", FILTER_SANITIZE_SPECIAL_CHARS);
 
-
-        $this->raw_passowrd = trim($password);
-        $this->encrypted_password = password_hash($this->$password, PASSWORD_DEFAULT);
+        $this->raw_password = trim($password);
+        $this->encrypted_password = password_hash($this->raw_password, PASSWORD_DEFAULT);
 
         $this->stored_users = json_decode(file_get_contents($this->storage), true);
 
@@ -49,16 +50,18 @@ class RegisterUser
         }
     }
 
-    public function checkFieldValues()
+    private function checkFieldValues()
     {
-        if (empty($this->username) || empty($this->password) || empty($this->address) || empty($this->country) || empty($this->code) || empty($this->email) || empty($this->sex) || empty($this->checkbox)) {
+        if (empty($this->username) || empty($this->raw_password) || empty($this->address) || empty($this->country) || empty($this->code) || empty($this->email)) {
+            $this->invalid_feedback = "All fields are required.";
+
             return false;
         } else {
             return true;
         }
     }
 
-    public function usernameExists()
+    private function usernameExists()
     {
         foreach ($this->stored_users as $user) {
             if ($this->username == $user['username']) {
@@ -69,10 +72,11 @@ class RegisterUser
         return false;
     }
 
-    public function insertUser()
+    private function insertUser()
     {
         if ($this->usernameExists() == FALSE) {
             array_push($this->stored_users, $this->new_user);
+
             if (file_put_contents($this->storage, json_encode($this->stored_users, JSON_PRETTY_PRINT))) {
                 return $this->valid_feedback = "Your registration was successful.";
             } else {

@@ -1,8 +1,8 @@
-<?php
-session_start();
-require("register.class.php");
+<?php require("register.class.php"); ?>
 
-if (isset($_POST['submit'])){
+<?php
+
+if (isset($_POST['submit'])) {
     $user = new RegisterUser($_POST['username'], $_POST['password'], $_POST['address'], $_POST['country'], $_POST['code'], $_POST['email'], $_POST['sex'], $_POST['checkbox'], $_POST['about']);
 }
 ?>
@@ -22,147 +22,152 @@ if (isset($_POST['submit'])){
 
 <body>
     <div class="container">
-        <div class="left-box">
-            <h2>Sign Up</h2>
-            <p>
-                Sign up with with your simple details it will be cross checked by the
-                adminstration
-            </p>
-            <h2>Sign In</h2>
-            <p style="padding-bottom: 200px">
-                Sign In with with your username and password
-            </p>
-        </div>
-        <div class="loginbox">
-            <div class="loginForm">
-                <form action="" method="post" enctype="multipart/form-data">
-                    <label for="username">Name:</label>
-                    <input
-                        id="username"
-                        class="username form-control"
-                        pattern="^[a-zA-Z]*$"
-                        type="text"
-                        placeholder="username"
-                        required
-                        autocomplete="name" />
+        <div class="row">
+            <div class="col-md-4 left-box bg-primary" style="height: auto;">
+                <h2>Sign Up</h2>
+                <p>
+                    Sign up with with your simple details it will be cross checked by the
+                    adminstration
+                </p>
+                <h2>Sign In</h2>
+                <p style="padding-bottom: 200px">
+                    Sign In with with your username and password
+                </p>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center text-center  loginbox">
+                <div class="loginForm">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <label for="username">Name:</label>
+                        <input
+                            id="username"
+                            name="username"
+                            class="username form-control"
+                            type="text"
+                            placeholder="username"
+                            required
+                            autocomplete="name" />
 
-                    <label for="password"> Password: </label>
-                    <input
-                        id="password"
-                        class="password form-control"
-                        type="password"
-                        minlength="7"
-                        maxlength="12"
-                        placeholder="Password"
-                        required
-                        autocomplete="new-password" />
+                        <label for="password"> Password: </label>
+                        <input
+                            id="password"
+                            name="password"
+                            class="password form-control"
+                            type="password"
+                            placeholder="Password"
+                            required
+                            autocomplete="new-password" />
 
-                    <label for="address form-control">Address:</label>
-                    <input
-                        id="address"
-                        class="address form-control"
-                        type="text"
-                        placeholder="address"
-                        autocomplete="address"
-                        required />
+                        <label for="address">Address:</label>
+                        <input
+                            id="address"
+                            name="address"
+                            class="address form-control"
+                            type="text"
+                            placeholder="address"
+                            autocomplete="address"
+                            required />
 
-                    <label for="country">Country:</label>
-                    <select
-                        id="country"
-                        class="country"
-                        style="width: 70%; height: 25px"
-                        autocomplete="country"
-                        required>
-                        <option>country</option>
-                        <option>jordan</option>
-                        <option>ksa</option>
-                        <option>qatar</option>
-                        <option>egypt</option>
-                    </select>
+                        <label for="country">Country:</label>
+                        <select
+                            id="country"
+                            name="country"
+                            class="country"
+                            style="width: 70%; height: 25px"
+                            autocomplete="country"
+                            required>
+                            <option>country</option>
+                            <option>jordan</option>
+                            <option>ksa</option>
+                            <option>qatar</option>
+                            <option>egypt</option>
+                        </select>
 
-                    <label for="code">ZIP Code:</label>
-                    <input
-                        id="code"
-                        class="code form-control"
-                        type="number"
-                        placeholder="ZIP Code"
-                        required
-                        autocomplete="postal-code" />
+                        <label for="code">ZIP Code:</label>
+                        <input
+                            id="code"
+                            name="code"
+                            class="code form-control"
+                            type="number"
+                            placeholder="ZIP Code"
+                            required
+                            autocomplete="postal-code" />
 
-                    <label for="email">Email:</label>
-                    <input
-                        id="email"
-                        class="email form-control"
-                        type="email"
-                        placeholder="email"
-                        required
-                        autocomplete="email" />
+                        <label for="email">Email:</label>
+                        <input
+                            id="email"
+                            name="email"
+                            class="email form-control"
+                            type="email"
+                            placeholder="email"
+                            required
+                            autocomplete="email" />
 
-                    <label class="sex">Sex:
-                        <label>
-                            <input
-                                name="sex"
-                                type="radio"
-                                value="male"
-                                style="height: auto" />
-                            Male</label>
-                        <label>
-                            <input
-                                name="sex"
-                                type="radio"
-                                value="female"
-                                style="height: auto" />
-                            Female</label>
-                    </label>
-                    <label>Language:
-                        <label><input
-                                name="checkbox"
-                                type="checkbox"
-                                id="english"
-                                value="english" />
-                            English</label>
-                        <label>
-                            <input
-                                name="checkbox"
-                                type="checkbox"
-                                id="nonEnglish"
-                                name="nonEnglish"
-                                value="Bike" />
-                            Non English</label>
-                    </label>
+                        <label class="sex">Sex:
+                            <label>
+                                <input
+                                    name="sex"
+                                    type="radio"
+                                    value="male"
+                                    style="height: auto" />
+                                Male</label>
+                            <label>
+                                <input
+                                    name="sex"
+                                    type="radio"
+                                    value="female"
+                                    style="height: auto" />
+                                Female</label>
+                        </label>
+                        <label>Language:
+                            <label><input
+                                    name="checkbox"
+                                    type="checkbox"
+                                    id="english"
+                                    value="english" />
+                                English</label>
+                            <label>
+                                <input
+                                    name="checkbox"
+                                    type="checkbox"
+                                    id="nonEnglish"
+                                    value="nonEnglish" />
+                                Non English</label>
+                        </label>
 
-                    <label for="about form-control">About:</label>
-                    <textarea
-                        id="about"
-                        class="about"
-                        type="text"
-                        placeholder="about"></textarea>
+                        <label for="about">About:</label>
+                        <textarea
+                            id="about"
+                            name="about"
+                            class="about"
+                            type="text"
+                            placeholder="about"></textarea>
 
-                    <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
-                    <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
+                        <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
+                        <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
 
-                    <button
-                    style="background-color: green; color: white"
-                        name="submit"
-                        type="submit">
-                        Signup
-                    </button>
-                </form>
-                or
-                <a href="login.php"><button>login</button></a>
+                        <button
+                            class="btn btn-primary"
+                            name="submit"
+                            type="submit"
+                            value="submit">
+                            Signup
+                        </button>
+                    </form>or
+                    <a href="login.php"><button>login</button></a>
+
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-        const form = document.querySelector("form");
+        <script>
+            const form = document.querySelector("form");
 
-        form.addEventListener("submit", (e) => {
-            if (!form.checkValidity()) {
-                e.preventDefault();
-            }
-            form.classList.add("was-validated");
-        });
-    </script>
+            form.addEventListener("submit", (e) => {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                }
+                form.classList.add("was-validated");
+            });
+        </script>
 </body>
 
 </html>

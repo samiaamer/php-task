@@ -1,3 +1,13 @@
 [
-    
+    {
+        "username": "personnew",
+        "password": "$2y$10$Ph.56h2HRFcSbTypJiio5u\/dkuN3GYb7p0JW0BBRLc.dcWu1n8noC",
+        "address": "amman",
+        "country": "jordan",
+        "code": "123",
+        "email": "person2@ex.com",
+        "sex": "female",
+        "checkbox": "english",
+        "about": "test"
+    }
 ]

@@ -1,3 +1,7 @@
+<?php 
+require("login.class.php");
+?>
+
 <?php
 session_start();
 $nameErr = $emailErr = $passErr = "";
