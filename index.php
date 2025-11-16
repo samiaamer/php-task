@@ -25,6 +25,8 @@ if (!is_dir($user_dir)) {
     }
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -77,10 +79,12 @@ if (!is_dir($user_dir)) {
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <a class="btn btn-primary btn-lg m-2" href="#projects" role="button">Create Folder
-                        <?php  ?>
-                    </a>
-                    <input class="btn btn-primary btn-lg m-2" href="#projects" role="button">Upload File</input>
+                    <form action="newFile.php" method="POST" enctype="multipart/form-data">
+                        <label for="fileUpload">Choose a file to upload:</label><br><br>
+                        <input type="file" name="uploadedFile" id="fileUpload"><br><br>
+                        <button type="submit">Upload</button>
+                    </form>
+                    <!-- <button type="submit"><input class="btn btn-primary btn-lg m-2" type="file" role="button"></button> -->
                 </div>
             </div>
         </div>
