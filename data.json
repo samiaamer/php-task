@@ -42,5 +42,16 @@
         "sex": "male",
         "checkbox": "english",
         "about": "tttttt"
+    },
+    {
+        "username": "test123",
+        "password": "$2y$10$An1GRiilVhU5\/abk4hEYPOOG3III\/6\/1Edl41OrH4shXEO3I29GoG",
+        "address": "amman",
+        "country": "jordan",
+        "code": "123",
+        "email": "test123@ex.com",
+        "sex": "male",
+        "checkbox": "english",
+        "about": "testing"
     }
 ]

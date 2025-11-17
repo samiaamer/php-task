@@ -58,6 +58,9 @@ if (isset($_POST['createFolder'])) {
     }
 }
 
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +120,7 @@ if (isset($_POST['createFolder'])) {
                     </form><br>
                     <form action="" method="POST" enctype="multipart/form-data">
                         <input type="text" name="createFolder" id="createFolder">
-                        <input class="btn btn-primary btn-lg m-2"  type="submit" value="Create Folder"> 
+                        <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">
                     </form>
 
                 </div>
@@ -137,22 +140,77 @@ if (isset($_POST['createFolder'])) {
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    $handle = opendir('/var/www/192.168.1.93/php-task/users/' . $username . '/');
+                    $directory = opendir('/var/www/192.168.1.93/php-task/users/' . $username . '/');
 
-                    while (($file = readdir(($handle))) !== false) {
+                    while (($file = readdir(($directory))) !== false) {
                         if ($file != '.' && $file != '..') {
-                            echo '<tr>';
-                            echo '<td>' . htmlspecialchars($row['name']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['type']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['added']) . '</td>';
-
-                            echo '</tr>';
+                            $dirarray[] = $file;
                         }
                     }
-                    ?>
+                    $fileCount = count($dirarray);
+                    closedir($directory);
+                   
+                    for ($i = 0; $i < $fileCount; $i++) {
+                        $fileName = $dirarray[$i];
+                        $filelink = 'users/' .  $username . '/' . $fileName;
 
-                    <button class="btn btn-primary "><a href="update.php" class="text-light">Update</a></button>
-                    <button class="btn btn-danger"><a href="delete.php" class="text-light">Delete</a></button>
+                        $fileType = pathinfo($dirarray[$i], PATHINFO_EXTENSION);
+                        switch ($fileType) {
+                            case 'txt':
+                                $fileType = 'Text File';
+                                break;
+                            case 'png':
+                                $fileType = 'Image / PNG';
+                                break;
+                            case 'jpg':
+                                $fileType = 'Image / JPG';
+                                break;
+                            case 'svg':
+                                $fileType = 'Image3 / SVG';
+                                break;
+                            case 'gif':
+                                $fileType = 'Image / GIF';
+                                break;
+                            case 'ico':
+                                $fileType = 'Icon';
+                                break;
+                            case 'html':
+                                $fileType = 'HTML File';
+                                break;
+                            case 'php':
+                                $fileType = 'PHP File';
+                                break;
+                            case 'css':
+                                $fileType = 'CSS File';
+                                break;
+                            case 'js':
+                                $fileType = 'JavaScript File';
+                                break;
+                            case 'pdf':
+                                $fileType = 'PDF File';
+                                break;
+                            case 'zip':
+                                $fileType = 'ZIP Archive';
+                                break;
+                        }
+                        $fileDate = date('j / m / Y g:i A' . filemtime($fileName));
+                        if ($fileType == null) {
+                            $fileType = "Directory";
+                        }
+                        print("
+                    <tr>
+                        <td><a href='./$filelink' class='text-dark'>$fileName </a></td>
+                        <td>$fileType </td>
+                        <td>$fileDate</td>
+                        
+                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=".$filelink."' class='text-light'>Delete</a></button></td>
+                    </tr>");
+                    }
+                    ?>
+                    <!-- <td><button class='btn btn-primary text-light' href='$filelink'>View</button> -->
+
+
+
                 </tbody>
             </table>
         </div>
@@ -162,6 +220,11 @@ if (isset($_POST['createFolder'])) {
             Created at trainging with Sprintive.
         </div>
     </footer>
+    <script>
+        function show() {
+            document.getElementById('file').style.display = "none";
+        }
+    </script>
 </body>
 
 </html>
