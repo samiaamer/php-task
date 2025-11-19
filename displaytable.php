@@ -7,14 +7,8 @@ function displaytable()
 
     $directory = opendir('users/' . $username . '/');
 
-    while (($file = readdir($directory)) !== false) {
+    while (($file = readdir(($directory))) !== false) {
         if ($file != '.' && $file != '..') {
-            if (is_dir($file)){
-                $subdir = opendir($file);
-                while (($subfile = readdir($subdir)) !== FALSE){
-                    $dirarray[] = $subfile;
-                }
-            }
             $dirarray[] = $file;
         }
     }
