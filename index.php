@@ -2,65 +2,15 @@
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
+include 'displaytable.php';
+include 'createUserDir.php';
+
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
 
-
-$base_dir = '/var/www/192.168.1.93/php-task/users/';
-$user_dir = $base_dir . $username . '/';
-if (!is_dir($user_dir)) {
-    if (mkdir($user_dir, 0777, true)) {
-        return true;
-    } else {
-        echo "Failed to create directory: " . $user_dir;
-        return false;
-    }
-}
-
-
-
-if (isset($_POST['uploadedFile'])) {
-
-    $uploadTo = '/var/www/192.168.1.93/php-task/users/' . $username . '/';
-    $fileName = $_FILES['uploadedFile']['name'];
-    $fileType = $_FILES['uploadedFile']['type'];
-    $fileSize = $_FILES['uploadedFile']['size'];
-    $fileError = $_FILES['uploadedFile']['error'];
-    $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
-
-    if ($fileError == UPLOAD_ERR_OK) {
-        $destPath = $uploadTo . $fileName;
-        if (move_uploaded_file($fileTmpPath, $destPath)) {
-            header('Location: index.php');
-            exit();
-        }
-        echo "error uploading file<br>";
-    }
-}
-
-if (isset($_POST['createFolder'])) {
-    $base_dir = '/var/www/192.168.1.93/php-task/users/' . $username . '/';
-    $user_dir = $base_dir . $_POST['createFolder'];
-    if (!file_exists($user_dir)) {
-        if (mkdir($user_dir, 0777, true)) {
-            echo "<script type = 'text/javascript'>alert('Folder Created!');</script>";
-            header('Location: index.php');
-            exit();
-            return true;
-        } else {
-            echo "<script type = 'text/javascript'>alert('Failed to create directory');</script>";
-            header('Location: index.php');
-            exit();
-            return false;
-        }
-    }
-}
-
-
-
-
+createUserdir();
 ?>
 
 <!DOCTYPE html>
@@ -113,12 +63,12 @@ if (isset($_POST['createFolder'])) {
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="uploadfile.php" method="POST" enctype="multipart/form-data">
                         <label for="fileUpload">Choose a file to upload:</label>
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
                     </form><br>
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="createfolder.php" method="POST" enctype="multipart/form-data">
                         <input type="text" name="createFolder" id="createFolder">
                         <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">
                     </form>
@@ -140,77 +90,8 @@ if (isset($_POST['createFolder'])) {
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    $directory = opendir('/var/www/192.168.1.93/php-task/users/' . $username . '/');
-
-                    while (($file = readdir(($directory))) !== false) {
-                        if ($file != '.' && $file != '..') {
-                            $dirarray[] = $file;
-                        }
-                    }
-                    $fileCount = count($dirarray);
-                    closedir($directory);
-                   
-                    for ($i = 0; $i < $fileCount; $i++) {
-                        $fileName = $dirarray[$i];
-                        $filelink = 'users/' .  $username . '/' . $fileName;
-
-                        $fileType = pathinfo($dirarray[$i], PATHINFO_EXTENSION);
-                        switch ($fileType) {
-                            case 'txt':
-                                $fileType = 'Text File';
-                                break;
-                            case 'png':
-                                $fileType = 'Image / PNG';
-                                break;
-                            case 'jpg':
-                                $fileType = 'Image / JPG';
-                                break;
-                            case 'svg':
-                                $fileType = 'Image3 / SVG';
-                                break;
-                            case 'gif':
-                                $fileType = 'Image / GIF';
-                                break;
-                            case 'ico':
-                                $fileType = 'Icon';
-                                break;
-                            case 'html':
-                                $fileType = 'HTML File';
-                                break;
-                            case 'php':
-                                $fileType = 'PHP File';
-                                break;
-                            case 'css':
-                                $fileType = 'CSS File';
-                                break;
-                            case 'js':
-                                $fileType = 'JavaScript File';
-                                break;
-                            case 'pdf':
-                                $fileType = 'PDF File';
-                                break;
-                            case 'zip':
-                                $fileType = 'ZIP Archive';
-                                break;
-                        }
-                        $fileDate = date('j / m / Y g:i A' . filemtime($fileName));
-                        if ($fileType == null) {
-                            $fileType = "Directory";
-                        }
-                        print("
-                    <tr>
-                        <td><a href='./$filelink' class='text-dark'>$fileName </a></td>
-                        <td>$fileType </td>
-                        <td>$fileDate</td>
-                        
-                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=".$filelink."' class='text-light'>Delete</a></button></td>
-                    </tr>");
-                    }
+                    displaytable();
                     ?>
-                    <!-- <td><button class='btn btn-primary text-light' href='$filelink'>View</button> -->
-
-
-
                 </tbody>
             </table>
         </div>
