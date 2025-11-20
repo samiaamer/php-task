@@ -51,10 +51,8 @@ createUserdir();
 
         </div>
     </nav>
-
-
     <div style="background-color:white;height: 15vh">
-        <div
+        <div 
             class="container">
             <div class="row pt-3">
                 <h1 class="col-md-8">
@@ -70,11 +68,11 @@ createUserdir();
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
                     </form><br>
-                    <form action="createfolder.php" method="get" enctype="multipart/form-data">
+                    <form action="createfolder.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="currentdir" value="<?= $currentdir ?>  ?>">
                         <input type="text" name="createFolder" id="createFolder">
                         <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">
                     </form>
-
                 </div>
             </div>
         </div>
@@ -93,7 +91,6 @@ createUserdir();
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-
                     function displaytable($dir)
                     {
                         $items = [];
@@ -106,7 +103,6 @@ createUserdir();
                             $path = $dir . '/' . $item;
                             $items[] = $path;
                         }
-
                         return $items;
                     }
 
@@ -160,7 +156,7 @@ createUserdir();
                                     break;
                             }
                         }
-                        $fileDate = date('j / m / Y g:i A' , filemtime($file));
+                        $fileDate = date('j / m / Y g:i A', filemtime($file));
 
                         print("
                     <tr>
@@ -168,8 +164,7 @@ createUserdir();
                         <td>$fileType</td>
                         <td>$fileDate</td>
                         
-                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($file) . "' class='text-light'>Delete</a></button>
-                      
+                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($filelink) . "' class='text-light'>Delete</a></button>
                         </td>
                     </tr>");
                     }

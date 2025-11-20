@@ -16,6 +16,6 @@ if (isset($_GET['filetodelete'])) {
         echo "Error: The file $name does not exist.";
     }
 
-    header("Location: index.php?dir=" . $currentdir);
+    // header("Location: index.php?dir=" . urlencode($currentdir));
     exit();
 }
