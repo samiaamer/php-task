@@ -9,6 +9,7 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
+$currentdir = isset($_GET['dir']) ? $_GET['dir'] : 'users/' . $username;
 
 createUserdir();
 ?>
@@ -63,7 +64,8 @@ createUserdir();
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <form action="uploadfile.php" method="POST" enctype="multipart/form-data">
+                    <form action="uploadfile.php?dir=<?= urlencode($currentdir) ?>" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="currentdir" value="<?= $currentdir ?>  ?>">
                         <label for="fileUpload">Choose a file to upload:</label>
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
@@ -90,89 +92,82 @@ createUserdir();
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
+
                     function displaytable($dir)
                     {
-                        $files = array();
-                        $items = scandir($dir);
-                        $i  = 0;
-                        foreach ($items as $item) {
+                        $items = [];
+
+                        foreach (scandir($dir) as $item) {
                             if ($item == '.' || $item == '..') {
                                 continue;
                             }
 
-                            $path = $dir . DIRECTORY_SEPARATOR . $item;
-
-                            if (is_dir($path)) {
-                                $files = array_merge($files, displaytable($path));
-                                $i = $i + 1;
-                                // echo $files[$i] . '<br>';
-                                echo $path . '<br>';
-                            } else {
-                                $files[] = $path;
-                            }
+                            $path = $dir . '/' . $item;
+                            $items[] = $path;
                         }
 
-                        return $files;
+                        return $items;
                     }
 
-                    $startDir = 'users/' . $username;
-                    $allFiles = displaytable($startDir);
+                    $allFiles = displaytable($currentdir);
 
                     foreach ($allFiles as $file) {
                         $fileName = basename($file);
-                        $filelink =  $file;
-
-                        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-                        switch ($fileType) {
-                            case 'txt':
-                                $fileType = 'Text File';
-                                break;
-                            case 'png':
-                                $fileType = 'Image / PNG';
-                                break;
-                            case 'jpg':
-                                $fileType = 'Image / JPG';
-                                break;
-                            case 'svg':
-                                $fileType = 'Image3 / SVG';
-                                break;
-                            case 'gif':
-                                $fileType = 'Image / GIF';
-                                break;
-                            case 'ico':
-                                $fileType = 'Icon';
-                                break;
-                            case 'html':
-                                $fileType = 'HTML File';
-                                break;
-                            case 'php':
-                                $fileType = 'PHP File';
-                                break;
-                            case 'css':
-                                $fileType = 'CSS File';
-                                break;
-                            case 'js':
-                                $fileType = 'JavaScript File';
-                                break;
-                            case 'pdf':
-                                $fileType = 'PDF File';
-                                break;
-                            case 'zip':
-                                $fileType = 'ZIP Archive';
-                                break;
-                        }
-                        $fileDate = date('j / m / Y g:i A' . filemtime($fileName));
-
-                        if ($fileType == null) {
+                        if (is_dir($file)) {
+                            $filelink = 'index.php?dir=' . urlencode($file);
                             $fileType = "Directory";
+                        } else {
+                            $filelink = htmlspecialchars($file, ENT_QUOTES, 'UTF-8');
+
+                            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                            switch ($fileType) {
+                                case 'txt':
+                                    $fileType = 'Text File';
+                                    break;
+                                case 'png':
+                                    $fileType = 'Image / PNG';
+                                    break;
+                                case 'jpg':
+                                    $fileType = 'Image / JPG';
+                                    break;
+                                case 'svg':
+                                    $fileType = 'Image3 / SVG';
+                                    break;
+                                case 'gif':
+                                    $fileType = 'Image / GIF';
+                                    break;
+                                case 'ico':
+                                    $fileType = 'Icon';
+                                    break;
+                                case 'html':
+                                    $fileType = 'HTML File';
+                                    break;
+                                case 'php':
+                                    $fileType = 'PHP File';
+                                    break;
+                                case 'css':
+                                    $fileType = 'CSS File';
+                                    break;
+                                case 'js':
+                                    $fileType = 'JavaScript File';
+                                    break;
+                                case 'pdf':
+                                    $fileType = 'PDF File';
+                                    break;
+                                case 'zip':
+                                    $fileType = 'ZIP Archive';
+                                    break;
+                            }
                         }
+                        $fileDate = date('j / m / Y g:i A' . filemtime($file));
+
                         print("
                     <tr>
-                        <td><a href = './$filelink' >$fileName</td>
+                        <td><a href = '$filelink' >$fileName</td>
                         <td>$fileType</td>
                         <td>$fileDate</td>
                         
-                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . $filelink . "' class='text-light'>Delete</a></button>
+                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($file) . "' class='text-light'>Delete</a></button>
                       
                         </td>
                     </tr>");
