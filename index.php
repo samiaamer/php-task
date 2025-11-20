@@ -94,12 +94,10 @@ createUserdir();
                     function displaytable($dir)
                     {
                         $items = [];
-
                         foreach (scandir($dir) as $item) {
                             if ($item == '.' || $item == '..') {
                                 continue;
                             }
-
                             $path = $dir . '/' . $item;
                             $items[] = $path;
                         }
@@ -107,7 +105,6 @@ createUserdir();
                     }
 
                     $allFiles = displaytable($currentdir);
-
                     foreach ($allFiles as $file) {
                         $fileName = basename($file);
                         if (is_dir($file)) {
@@ -157,7 +154,6 @@ createUserdir();
                             }
                         }
                         $fileDate = date('j / m / Y g:i A', filemtime($file));
-
                         print("
                     <tr>
                         <td><a href = '$filelink' >$fileName</td>
