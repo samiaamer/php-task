@@ -70,7 +70,7 @@ createUserdir();
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
                     </form><br>
-                    <form action="createfolder.php" method="POST" enctype="multipart/form-data">
+                    <form action="createfolder.php" method="get" enctype="multipart/form-data">
                         <input type="text" name="createFolder" id="createFolder">
                         <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">
                     </form>
@@ -83,6 +83,7 @@ createUserdir();
 
     <div class="container mt-5">
         <div class="table-responsive">
+            <?php echo $currentdir; ?>
             <table class="table table-hover table-striped ">
                 <thead>
                     <th>Title/Name</th>
@@ -159,7 +160,7 @@ createUserdir();
                                     break;
                             }
                         }
-                        $fileDate = date('j / m / Y g:i A' . filemtime($file));
+                        $fileDate = date('j / m / Y g:i A' , filemtime($file));
 
                         print("
                     <tr>

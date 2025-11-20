@@ -1,10 +1,10 @@
 <?php
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+$currentdir = isset($_GET['dir']) ? $_GET['dir'] : 'users/' . $username;
 
-if (isset($_POST['uploadedFile'])) {
+if (isset($_FILES['uploadedFile'])) {
 
-    $uploadTo = 'users/' . $username . '/';
     $fileName = $_FILES['uploadedFile']['name'];
     $fileType = $_FILES['uploadedFile']['type'];
     $fileSize = $_FILES['uploadedFile']['size'];
@@ -12,13 +12,15 @@ if (isset($_POST['uploadedFile'])) {
     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
 
     if ($fileError == UPLOAD_ERR_OK) {
-        $destPath = $uploadTo . $fileName;
+        $currentdir = rtrim($currentdir, '/');
+        $destPath = $currentdir . '/' . $fileName;
+
         if (move_uploaded_file($fileTmpPath, $destPath)) {
-            header('Location: index.php');
+
+            header("Location: index.php?dir=" . urlencode($currentdir));
             exit();
         }
-        header('Location: index.php');
-        echo "error uploading file<br>";
-        exit();
     }
+    echo "error uploading file<br>";
+    exit();
 }

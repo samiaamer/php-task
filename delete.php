@@ -1,5 +1,7 @@
 <?php
-
+session_start();
+$username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+$currentdir = isset($_GET['dir']) ? $_GET['dir'] : 'users/' . $username;
 
 if (isset($_GET['filetodelete'])) {
     $name = $_GET['filetodelete'];
@@ -14,6 +16,6 @@ if (isset($_GET['filetodelete'])) {
         echo "Error: The file $name does not exist.";
     }
 
-    header("Location:index.php");
+    header("Location: index.php?dir=" . $currentdir);
     exit();
 }
