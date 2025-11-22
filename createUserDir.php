@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 function createUserdir()
 {
     $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;

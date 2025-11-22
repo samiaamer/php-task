@@ -4,17 +4,33 @@ $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 $currentdir = isset($_GET['dir']) ? $_GET['dir'] : 'users/' . $username;
 
 if (isset($_GET['filetodelete'])) {
-    $name = '/users/person1/testfoldar';
+    $file = urldecode($_GET['filetodelete']);
 
-    if (file_exists($name)) {
-        if (unlink($name)) {
-            echo "The file $name has been deleted.";
+    if (file_exists($file)) {
+        if (is_dir($file)) {
+            if (deleteDir($file))
+                echo "Folder deleted successfully";
+            else
+                echo "Folder couldnt be deleted";
+            exit();
+        }
+        if (unlink($file)) {
+            echo "The file $file has been deleted.";
         } else {
-            echo "Error: The file $name could not be deleted.";
+            echo "The file $file could not be deleted.";
         }
     } else {
-        echo "Error: The file $name does not exist.";
+        echo "The file $file does not exist.";
     }
-    // header("Location: index.php?dir=" . urlencode($currentdir));
     exit();
+}
+
+function deleteDir($dir)
+{
+    $files = array_diff(scandir($dir), ['.', '..']);
+    foreach ($files as $file) {
+        $path = "$dir/$file";
+        is_dir($path) ? deleteDir($path) : unlink($path);
+    }
+    return rmdir($dir);
 }

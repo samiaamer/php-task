@@ -1,26 +1,23 @@
 <?php
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-$currentdir = isset($_GET['dir']) ? $_GET['dir'] : 'users/' . $username;
 
-if (isset($_POST['createFolder'])) {
-    // $base_dir = $currentdir . '/';
-    // $user_dir = $base_dir . $_GET['createFolder'];
-    $name = $_POST['createFolder'];
-    $currentdir = rtrim($currentdir, '/');
-    $user_dir = $currentdir . '/' . $name;
-    // echo "<script> alert ('$user_dir');</script>";
-echo dirname($_SERVER['PHP_SELF']);
-    // if (!file_exists($user_dir)) {
-    //     if (mkdir($user_dir, 0777, true)) {
-    //         chmod($user_dir, 0777);
-    //         echo "Folder Created!";
-    //         echo "<script> alert ('Folder Created');</script>";
-    //     } else {
-    //         echo "Failed to create directory.";
-    //     }
-    // } else
-    //     echo "<script> alert ('error');</script>";
-    // header("Location: index.php?dir=" . urlencode($currentdir));
-    exit();
+$currentdir = rtrim($_POST['currentdir'], '/');
+$folderName = trim($_POST['createFolder']);
+
+if ($folderName === "") {
+    exit("Folder name can't be empty");
+}
+
+$folder = $currentdir . '/' . $folderName;
+
+if (!file_exists($folder)) {
+    if (mkdir($folder, 0777, true)) {
+        header("Location: index.php?dir=" . urlencode($currentdir));
+        exit();
+    } else {
+        exit("Failed to create directory.");
+    }
+} else {
+    exit("Folder already exists.");
 }

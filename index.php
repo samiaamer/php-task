@@ -2,7 +2,6 @@
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
-include 'displaytable.php';
 include 'createUserDir.php';
 
 if (!isset($_SESSION['user'])) {
@@ -62,14 +61,14 @@ createUserdir();
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <form action="uploadfile.php?dir=<?= urlencode($currentdir) ?>" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="currentdir" value="<?= $currentdir ?>  ?>">
+                    <form action="uploadfile.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <label for="fileUpload">Choose a file to upload:</label>
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
                     </form><br>
                     <form action="createfolder.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="currentdir" value="<?= $currentdir ?>  ?>">
+                        <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <input type="text" name="createFolder" id="createFolder">
                         <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">
                     </form>
@@ -160,7 +159,7 @@ createUserdir();
                         <td>$fileType</td>
                         <td>$fileDate</td>
                         
-                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($filelink) . "' class='text-light'>Delete</a></button>
+                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($file) . "' class='text-light'>Delete</a></button>
                         </td>
                     </tr>");
                     }
