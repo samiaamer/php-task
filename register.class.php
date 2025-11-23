@@ -78,7 +78,6 @@ class RegisterUser
             array_push($this->stored_users, $this->new_user);
 
             if (file_put_contents($this->storage, json_encode($this->stored_users, JSON_PRETTY_PRINT))) {
-                // return $this->valid_feedback = "Your registration was successful.";
                 header("Location: login.php");
                 exit();
             } else {

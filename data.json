@@ -20,49 +20,5 @@
         "sex": "male",
         "checkbox": "english",
         "about": "test"
-    },
-    {
-        "username": "testing",
-        "password": "$2y$10$Pxy.ghij0kQgrcCqim187Oa3k.qbgKbXY6iq20z5RdYQZOCcx8Jc6",
-        "address": "amman",
-        "country": "jordan",
-        "code": "123",
-        "email": "testing@ex.com",
-        "sex": "male",
-        "checkbox": "nonEnglish",
-        "about": "test"
-    },
-    {
-        "username": "testuser",
-        "password": "$2y$10$9A5vSUXPgcGqKp2lxNgLTOiS5q6gp4.1bDTVL18IwYyDFu0O3hJKK",
-        "address": "amman",
-        "country": "jordan",
-        "code": "123",
-        "email": "testuser@ex.com",
-        "sex": "male",
-        "checkbox": "english",
-        "about": "tttttt"
-    },
-    {
-        "username": "test123",
-        "password": "$2y$10$An1GRiilVhU5\/abk4hEYPOOG3III\/6\/1Edl41OrH4shXEO3I29GoG",
-        "address": "amman",
-        "country": "jordan",
-        "code": "123",
-        "email": "test123@ex.com",
-        "sex": "male",
-        "checkbox": "english",
-        "about": "testing"
-    },
-    {
-        "username": "samianew",
-        "password": "$2y$10$LIrOY3m.HJmyShNWS0qge.RJs3xh\/zxrnsu3utYM80LRu56k6g.ye",
-        "address": "Amman",
-        "country": "jordan",
-        "code": "123",
-        "email": "samia@ex.com",
-        "sex": "female",
-        "checkbox": "english",
-        "about": "Samia@12345"
     }
 ]
