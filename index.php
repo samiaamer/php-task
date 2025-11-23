@@ -174,9 +174,7 @@ createUserdir();
         </div>
     </footer>
     <script>
-        function show() {
-            document.getElementById('file').style.display = "none";
-        }
+        
     </script>
 </body>
 
