@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
 
 <head>
     <title>login</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet" />

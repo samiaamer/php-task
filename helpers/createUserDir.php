@@ -8,6 +8,7 @@ function createUserdir()
     $user_dir = $base_dir . $username . '/';
     if (!is_dir($user_dir)) {
         if (mkdir($user_dir, 0777, true)) {
+            chmod($user_dir, 0777);
             header('Location: index.php');
             exit();
             return true;

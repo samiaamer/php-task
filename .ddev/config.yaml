@@ -1,4 +1,4 @@
-name: phpTask
+name: phptask
 type: php
 docroot: ""
 php_version: "8.3"

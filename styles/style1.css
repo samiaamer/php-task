@@ -8,6 +8,14 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+.loginForm {
+  width: 70%;
+}
+
+.form-group {
+  padding: 10px;
+}
+
 h2,
 p {
   margin: 15px 60px 15px 60px;
@@ -43,8 +51,8 @@ input {
 
 button {
   border: none;
-  width: 70px;
-  height: 30px;
+  height: 40px;
+  width: 50%;
   background-color: #f7f4f4;
   margin-bottom: 40x;
 }

@@ -2,7 +2,9 @@
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
-include 'createUserDir.php';
+require("helpers/createUserDir.php");
+require("helpers/printtable.php");
+
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
@@ -51,7 +53,7 @@ createUserdir();
         </div>
     </nav>
     <div style="background-color:white;height: 15vh">
-        <div 
+        <div
             class="container">
             <div class="row pt-3">
                 <h1 class="col-md-8">
@@ -61,14 +63,14 @@ createUserdir();
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <form action="uploadfile.php" method="POST" enctype="multipart/form-data">
+                    <form action="helpers/uploadfile.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <label for="fileUpload">Choose a file to upload:</label>
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
                     </form><br>
-                    <form action="createfolder.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
+                    <form action="helpers/createfolder.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <input type="text" name="createFolder" id="createFolder">
                         <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">
                     </form>
@@ -90,79 +92,7 @@ createUserdir();
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    function displaytable($dir)
-                    {
-                        $items = [];
-                        foreach (scandir($dir) as $item) {
-                            if ($item == '.' || $item == '..') {
-                                continue;
-                            }
-                            $path = $dir . '/' . $item;
-                            $items[] = $path;
-                        }
-                        return $items;
-                    }
-
-                    $allFiles = displaytable($currentdir);
-                    foreach ($allFiles as $file) {
-                        $fileName = basename($file);
-                        if (is_dir($file)) {
-                            $filelink = 'index.php?dir=' . urlencode($file);
-                            $fileType = "Directory";
-                        } else {
-                            $filelink = htmlspecialchars($file, ENT_QUOTES, 'UTF-8');
-
-                            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-                            switch ($fileType) {
-                                case 'txt':
-                                    $fileType = 'Text File';
-                                    break;
-                                case 'png':
-                                    $fileType = 'Image / PNG';
-                                    break;
-                                case 'jpg':
-                                    $fileType = 'Image / JPG';
-                                    break;
-                                case 'svg':
-                                    $fileType = 'Image3 / SVG';
-                                    break;
-                                case 'gif':
-                                    $fileType = 'Image / GIF';
-                                    break;
-                                case 'ico':
-                                    $fileType = 'Icon';
-                                    break;
-                                case 'html':
-                                    $fileType = 'HTML File';
-                                    break;
-                                case 'php':
-                                    $fileType = 'PHP File';
-                                    break;
-                                case 'css':
-                                    $fileType = 'CSS File';
-                                    break;
-                                case 'js':
-                                    $fileType = 'JavaScript File';
-                                    break;
-                                case 'pdf':
-                                    $fileType = 'PDF File';
-                                    break;
-                                case 'zip':
-                                    $fileType = 'ZIP Archive';
-                                    break;
-                            }
-                        }
-                        $fileDate = date('j / m / Y g:i A', filemtime($file));
-                        print("
-                    <tr>
-                        <td><a href = '$filelink' >$fileName</td>
-                        <td>$fileType</td>
-                        <td>$fileDate</td>
-                        
-                        <td><button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($file) . "' class='text-light'>Delete</a></button>
-                        </td>
-                    </tr>");
-                    }
+                    printingtable();
                     ?>
                 </tbody>
             </table>
@@ -174,7 +104,7 @@ createUserdir();
         </div>
     </footer>
     <script>
-        
+
     </script>
 </body>
 

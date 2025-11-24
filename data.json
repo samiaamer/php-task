@@ -20,5 +20,38 @@
         "sex": "male",
         "checkbox": "english",
         "about": "test"
+    },
+    {
+        "username": "test123",
+        "password": "$2y$10$5lj81SG7.KPCiCHlamS4sOzcHdd8NrgCS5Jpezictv0U2qPHLMZVO",
+        "address": "amman",
+        "country": "jordan",
+        "code": "234",
+        "email": "test123@ex.com",
+        "sex": "female",
+        "checkbox": "english",
+        "about": "asdfgf"
+    },
+    {
+        "username": "samia",
+        "password": "$2y$10$R5AV95RmGJtT\/nTw1N6JAegNJCGWvFKuyiQVUDsNIpiYy9Im.fgMy",
+        "address": "amman",
+        "country": "jordan",
+        "code": "123",
+        "email": "samia@ex.com",
+        "sex": "female",
+        "checkbox": "english",
+        "about": "Samia@12345"
+    },
+    {
+        "username": "testing",
+        "password": "$2y$10$yXOPE63UDYWW\/va3ot.3V.C.eFRy415L\/avh85lLZd4VV3gAQ4t6K",
+        "address": "amman",
+        "country": "jordan",
+        "code": "1234",
+        "email": "testing@ex.com",
+        "sex": "male",
+        "checkbox": "english",
+        "about": "testing"
     }
 ]

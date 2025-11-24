@@ -1,7 +1,10 @@
 <?php
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-$currentdir = rtrim($_POST['currentdir'], '/');
+// $baseDir = __DIR__;
+$currentdir = isset($_POST['currentdir']) ? trim($_POST['currentdir'], '/') : '';
+$absolutePath =  $currentdir;
+// $currentdir = isset($_POST['currentdir']) ? trim($_POST['currentdir'], '/') : $username;
 
 
 if (isset($_FILES['uploadedFile'])) {
@@ -13,11 +16,11 @@ if (isset($_FILES['uploadedFile'])) {
     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
 
     if ($fileError == UPLOAD_ERR_OK) {
-        $dest = $currentdir . '/' . $fileName;
+        $dest = $absolutePath . '/' . $fileName;
 
         if (move_uploaded_file($fileTmpPath, $dest)) {
 
-            header("Location: index.php?dir=" . urlencode($currentdir));
+            header("Location: ../index.php?dir=" . urlencode($currentdir));
             exit();
         }
     }
