@@ -1,15 +1,9 @@
 <?php
 require("login.class.php");
-?>
-
-<?php
 
 if (isset($_POST['submit'])) {
-    $user = new LoginUser($_POST['username'], $_POST['password'], $_POST['email']);
-    
+    $user = new LoginUser($_POST['username'], $_POST['password']);
 }
-
-
 
 ?>
 
@@ -27,7 +21,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <div class="container">
+    <div class="container">`
         <div class="row">
             <div class="col-md-4 left-box bg-primary" style="height: auto;">
                 <h2>Sign Up</h2>
@@ -54,17 +48,6 @@ if (isset($_POST['submit'])) {
                             autocomplete="name" />
                         <span id="nameErr" class="error text-danger"></span><br><br>
 
-                        <label for="email">Email:</label>
-                        <input
-                            id="email"
-                            class="email form-control"
-                            name="email"
-                            type="email"
-                            placeholder="email"
-                            required
-                            autocomplete="email" />
-                        <span id="emailErr" class="error text-danger"></span><br><br>
-
                         <label for="password"> Password: </label>
                         <input
                             id="password"
@@ -75,6 +58,9 @@ if (isset($_POST['submit'])) {
                             required
                             autocomplete="new-password" />
                         <span id="passErr" class="error text-danger"></span><br><br>
+                        <?php if (!empty($user->invalid_feedback)) : ?>
+                            <p class="text-danger"><?php echo $user->invalid_feedback; ?></p>
+                        <?php endif; ?>
 
                         <label style="font-size: x-small" for="agree">
                             <input

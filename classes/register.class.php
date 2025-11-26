@@ -2,13 +2,8 @@
 class RegisterUser
 {
     private $username;
-    private $address;
     private $country;
-    private $code;
     private $email;
-    private $sex;
-    private $checkbox;
-    private $about;
     private $raw_password;
     private $encrypted_password;
     private $storage = 'data.json';
@@ -17,16 +12,11 @@ class RegisterUser
     public $valid_feedback;
     public $invalid_feedback;
 
-    public function __construct($username, $password, $address, $country, $code, $email, $sex, $checkbox, $about)
+    public function __construct($username, $password, $country, $email)
     {
         $this->username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
         $this->email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-        $this->address = filter_input(INPUT_POST, "address", FILTER_SANITIZE_SPECIAL_CHARS);
         $this->country = filter_input(INPUT_POST, "country", FILTER_SANITIZE_SPECIAL_CHARS);
-        $this->code = filter_input(INPUT_POST, "code", FILTER_SANITIZE_NUMBER_INT);
-        $this->about = filter_input(INPUT_POST, "about", FILTER_SANITIZE_SPECIAL_CHARS);
-        $this->sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_SPECIAL_CHARS);
-        $this->checkbox = filter_input(INPUT_POST, "checkbox", FILTER_SANITIZE_SPECIAL_CHARS);
 
         $this->raw_password = trim($password);
         $this->encrypted_password = password_hash($this->raw_password, PASSWORD_DEFAULT);
@@ -36,13 +26,8 @@ class RegisterUser
         $this->new_user = [
             "username" => $this->username,
             "password" => $this->encrypted_password,
-            "address" => $this->address,
             "country" => $this->country,
-            "code" => $this->code,
             "email" => $this->email,
-            "sex" => $this->sex,
-            "checkbox" => $this->checkbox,
-            "about" => $this->about,
         ];
 
         if ($this->checkFieldValues()) {
@@ -52,7 +37,7 @@ class RegisterUser
 
     private function checkFieldValues()
     {
-        if (empty($this->username) || empty($this->raw_password) || empty($this->address) || empty($this->country) || empty($this->code) || empty($this->email)) {
+        if (empty($this->username) || empty($this->raw_password) || empty($this->country) || empty($this->email)) {
             $this->invalid_feedback = "All fields are required.";
 
             return false;

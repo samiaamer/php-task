@@ -1,9 +1,7 @@
-<?php require("register.class.php"); ?>
-
-<?php
+<?php require("classes/register.class.php");
 
 if (isset($_POST['submit'])) {
-    $user = new RegisterUser($_POST['username'], $_POST['password'], $_POST['address'], $_POST['country'], $_POST['code'], $_POST['email'], $_POST['sex'], $_POST['checkbox'], $_POST['about']);
+    $user = new RegisterUser($_POST['username'], $_POST['password'], $_POST['country'], $_POST['email']);
 }
 ?>
 
@@ -36,7 +34,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col d-flex align-items-center justify-content-center text-center  loginbox">
                 <div class="loginForm">
-                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label class="control-label" for="username">Name:</label>
                             <input
@@ -58,122 +56,76 @@ if (isset($_POST['submit'])) {
                                 required
                                 autocomplete="new-password" />
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="address">Address:</label>
-                            <input
-                                id="address"
-                                name="address"
-                                class="address form-control"
-                                type="text"
-                                placeholder="address"
-                                autocomplete="address"
-                                required />
 
-                            <label class="control-label" for="country">Country:</label>
-                            <select
-                                id="country"
-                                name="country"
-                                class="country"
-                                style="width: 70%; height: 25px"
-                                autocomplete="country"
-                                required>
-                                <option>country</option>
-                                <option>jordan</option>
-                                <option>ksa</option>
-                                <option>qatar</option>
-                                <option>egypt</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="code">ZIP Code:</label>
-                            <input
-                                id="code"
-                                name="code"
-                                class="code form-control"
-                                type="number"
-                                placeholder="ZIP Code"
-                                required
-                                autocomplete="postal-code" />
-
-                            <label class="control-label" for="email">Email:</label>
-                            <input
-                                id="email"
-                                name="email"
-                                class="email form-control"
-                                type="email"
-                                placeholder="email"
-                                required
-                                autocomplete="email" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" class="sex">Sex:
-                                <label>
-                                    <input
-                                        name="sex"
-                                        type="radio"
-                                        value="male"
-                                        style="height: auto" />
-                                    Male</label>
-                                <label>
-                                    <input
-                                        name="sex"
-                                        type="radio"
-                                        value="female"
-                                        style="height: auto" />
-                                    Female</label>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Language:
-                                <label><input
-                                        name="checkbox"
-                                        type="checkbox"
-                                        id="english"
-                                        value="english" />
-                                    English</label>
-                                <label>
-                                    <input
-                                        name="checkbox"
-                                        type="checkbox"
-                                        id="nonEnglish"
-                                        value="nonEnglish" />
-                                    Non English</label>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="about">About:</label>
-                            <textarea
-                                id="about"
-                                name="about"
-                                class="about"
-                                type="text"
-                                placeholder="about"></textarea>
-                        </div>
-                        <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
-                        <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
-
-                        <button
-                            class="btn btn-primary"
-                            name="submit"
-                            type="submit"
-                            value="submit">
-                            Signup
-                        </button>
-                    </form>or<a href="login.php"><button style="border: #686767;">login</button></a>
-
+                        <label class="control-label" for="country">Country:</label>
+                        <select
+                            id="country"
+                            name="country"
+                            class="country"
+                            style="width: 70%; height: 25px"
+                            autocomplete="country"
+                            required>
+                            <option>country</option>
+                            <option>jordan</option>
+                            <option>ksa</option>
+                            <option>qatar</option>
+                            <option>egypt</option>
+                        </select>
                 </div>
+                <div class="form-group">
+                    <label class="control-label" for="email">Email:</label>
+                    <input
+                        id="email"
+                        name="email"
+                        class="email form-control"
+                        type="email"
+                        placeholder="email"
+                        required
+                        autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Language:
+                        <label><input
+                                name="checkbox"
+                                type="checkbox"
+                                id="english"
+                                value="english" />
+                            English</label>
+                        <label>
+                            <input
+                                name="checkbox"
+                                type="checkbox"
+                                id="nonEnglish"
+                                value="nonEnglish" />
+                            Non English</label>
+                    </label>
+                </div>
+
+                <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
+                <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
+
+                <button
+                    class="btn btn-primary"
+                    name="submit"
+                    type="submit"
+                    value="submit">
+                    Signup
+                </button>
+                </form>or<a href="login.php"><button style="border: #686767;">login</button></a>
+
             </div>
         </div>
-        <script>
-            const form = document.querySelector("form");
+    </div>
+    <script>
+        const form = document.querySelector("form");
 
-            form.addEventListener("submit", (e) => {
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                }
-                form.classList.add("was-validated");
-            });
-        </script>
+        form.addEventListener("submit", (e) => {
+            if (!form.checkValidity()) {
+                e.preventDefault();
+            }
+            form.classList.add("was-validated");
+        });
+    </script>
 </body>
 
 </html>

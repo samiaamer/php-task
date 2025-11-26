@@ -3,12 +3,30 @@ session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
 include 'createUserDir.php';
+include 'printtable.php';
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
-$currentdir = isset($_GET['dir']) ? $_GET['dir'] : 'users/' . $username;
+
+// Absolute path to user's base directory
+$baseDir = realpath(__DIR__ . "/users/$username");
+
+// If dir not provided, default to baseDir
+if (!isset($_GET['dir'])) {
+    $currentdir = $baseDir;
+} else {
+    // Resolve requested path to absolute
+    $requested = realpath($_GET['dir']);
+
+    // If invalid OR outside user's folder → force back to base
+    if ($requested === false || strpos($requested, $baseDir) !== 0) {
+        $currentdir = $baseDir;
+    } else {
+        $currentdir = $requested;
+    }
+}
 
 createUserdir();
 ?>
@@ -51,7 +69,7 @@ createUserdir();
         </div>
     </nav>
     <div style="background-color:white;height: 15vh">
-        <div 
+        <div
             class="container">
             <div class="row pt-3">
                 <h1 class="col-md-8">
@@ -80,7 +98,32 @@ createUserdir();
 
     <div class="container mt-5">
         <div class="table-responsive">
-            <?php echo $currentdir; ?>
+            <?php
+            $parent = dirname($currentdir);
+            ?>
+            <div class="container mt-3">
+                <?php if ($currentdir !== $baseDir): ?>
+                    <a class="btn btn-secondary mb-3" href="index.php?dir=<?= urlencode($parent) ?>">⬅ Back</a>
+                <?php endif; ?>
+            </div>
+            <?php
+            $relativePath = str_replace($baseDir, '', $currentdir);
+            $parts = array_filter(explode('/', $relativePath));
+            $pathAccum = $baseDir;
+            ?>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.php?dir=<?= urlencode($baseDir) ?>">Home</a></li>
+                    <?php foreach ($parts as $part):
+                        $pathAccum .= '/' . $part; ?>
+                        <li class="breadcrumb-item">
+                            <a href="index.php?dir=<?= urlencode($pathAccum) ?>"><?= htmlspecialchars($part) ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            </nav>
+
             <table class="table table-hover table-striped ">
                 <thead>
                     <th>Title/Name</th>
@@ -90,80 +133,7 @@ createUserdir();
                 </thead>
                 <tbody class="table-group-divider">
                     <?php
-                    function displaytable($dir)
-                    {
-                        $items = [];
-                        foreach (scandir($dir) as $item) {
-                            if ($item == '.' || $item == '..') {
-                                continue;
-                            }
-                            $path = $dir . '/' . $item;
-                            $items[] = $path;
-                        }
-                        return $items;
-                    }
-
-                    $allFiles = displaytable($currentdir);
-                    foreach ($allFiles as $file) {
-                        $fileName = basename($file);
-                        if (is_dir($file)) {
-                            $filelink = 'index.php?dir=' . urlencode($file);
-                            $fileType = "Directory";
-                        } else {
-                            $filelink = htmlspecialchars($file, ENT_QUOTES, 'UTF-8');
-
-                            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-                            switch ($fileType) {
-                                case 'txt':
-                                    $fileType = 'Text File';
-                                    break;
-                                case 'png':
-                                    $fileType = 'Image / PNG';
-                                    break;
-                                case 'jpg':
-                                    $fileType = 'Image / JPG';
-                                    break;
-                                case 'svg':
-                                    $fileType = 'Image3 / SVG';
-                                    break;
-                                case 'gif':
-                                    $fileType = 'Image / GIF';
-                                    break;
-                                case 'ico':
-                                    $fileType = 'Icon';
-                                    break;
-                                case 'html':
-                                    $fileType = 'HTML File';
-                                    break;
-                                case 'php':
-                                    $fileType = 'PHP File';
-                                    break;
-                                case 'css':
-                                    $fileType = 'CSS File';
-                                    break;
-                                case 'js':
-                                    $fileType = 'JavaScript File';
-                                    break;
-                                case 'pdf':
-                                    $fileType = 'PDF File';
-                                    break;
-                                case 'zip':
-                                    $fileType = 'ZIP Archive';
-                                    break;
-                            }
-                        }
-                        $fileDate = date('j / m / Y g:i A', filemtime($file));
-                        print("
-                    <tr>
-                        <td><a href = '$filelink' >$fileName</td>
-                        <td>$fileType</td>
-                        <td>$fileDate</td>
-                        
-                        <td>
-                        <button class='btn btn-danger'><a href='delete.php?filetodelete=" . urlencode($file) . "' class='text-light'>Delete</a></button>
-                        </td>
-                    </tr>");
-                    }
+                    printingtable();
                     ?>
                 </tbody>
             </table>
@@ -175,7 +145,7 @@ createUserdir();
         </div>
     </footer>
     <script>
-        
+
     </script>
 </body>
 

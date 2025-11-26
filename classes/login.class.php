@@ -1,7 +1,6 @@
 <?php 
 class LoginUser{
     private $username;
-    private $email;
     private $password;
     private $storage = 'data.json';
     private $stored_users;
@@ -9,11 +8,10 @@ class LoginUser{
     public $invalid_feedback;
 
 
-    public function __construct($username, $password, $email)
+    public function __construct($username, $password)
     {
         $this->username = $username;
         $this->password = $password;
-        $this->email = $email;
         $this->stored_users = json_decode(file_get_contents($this->storage), true);
         $this->login();
     }
