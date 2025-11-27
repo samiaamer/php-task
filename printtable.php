@@ -70,7 +70,7 @@ function printingtable()
         //     </tr>
         //     ");
         // else
-            print("
+        print("
             <tr>
               
                 <td><a href='$filelink'>$fileName</a></td>
@@ -91,7 +91,6 @@ function printingtable()
         fetch('helpers/delete.php?filetodelete=' + encodeURIComponent(filePath))
             .then(res => res.text())
             .then(msg => {
-                alert(msg);
                 btn.closest('tr').remove();
             })
             .catch(err => alert('Error: ' + err));

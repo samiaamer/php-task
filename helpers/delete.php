@@ -27,13 +27,13 @@ if (isset($_GET['filetodelete'])) {
     }
     if (is_dir($file)) {
         if (deleteDir($file)) {
-            exit("Folder deleted successfully");
+            exit();
         } else {
             exit("Folder could not be deleted");
         }
     }
     if (unlink($file)) {
-        exit("File deleted successfully");
+        exit();
     } else {
         exit("Could not delete the file.");
     }
