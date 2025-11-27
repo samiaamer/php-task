@@ -47,6 +47,5 @@ function deleteDir($dir)
         $path = $dir . '/' . $file;
         is_dir($path) ? deleteDir($path) : unlink($path);
     }
-
     return rmdir($dir);
 }

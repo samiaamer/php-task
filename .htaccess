@@ -1,14 +1,7 @@
+RewriteEngine on
 
-<IfModule mod_rewrite.c>
-RewriteEngine On
-</IfModule>
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
 
-# Prevent Apache from blocking custom folders
-Options -Indexes
-
-
-
-
-RewriteEngine On
-RewriteRule ^folder/(.*)$ index.php?dir=users/$1 [L,QSA]
-
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?dir=$1
