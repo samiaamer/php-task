@@ -18,11 +18,11 @@ if (isset($_FILES['uploadedFile'])) {
         if (move_uploaded_file($fileTmpPath, $dest)) {
 
             header("Location: ../index.php?dir=" . urlencode($currentdir));
-            exit();
+            exit("Folder added successfully");
         }
-    }else
-    
-    echo "<script>alert ('error uploading file')</script>";
-    // header("Location: ../index.php?dir=" . urlencode($currentdir));
-    exit();
+    } else {
+        // echo "error uploading file";
+        header("Location: ../index.php?dir=" . urlencode($currentdir));
+        exit("error uploading file");
+    }
 }

@@ -79,7 +79,7 @@ createUserdir();
                         <label for="fileUpload">Choose a file to upload:</label>
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
-                    </form><br>
+                    </form>
                     <form action="helpers/createfolder.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <input type="text" name="createFolder" id="createFolder">
@@ -140,7 +140,19 @@ createUserdir();
         </div>
     </footer>
     <script>
+        // document.addEventListener('DOMcontentLoaded', function() {
+        //     const fileInput = document.getElementById('fileUpload');
+        //     const uploadButton = document.getElementById('uploadedFile');
+        //     uploadButton.disabled = true;
 
+        //     fileInput.addEventListener('change', function() {
+        //         if (fileInput.value) {
+        //             button.removeAttribute('disabled');
+        //         }
+        //         else
+        //             uploadButton.disabled = true;
+        //     })
+        // });
     </script>
 </body>
 
