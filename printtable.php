@@ -29,7 +29,8 @@ function printingtable()
             $filelink = 'index.php?dir=' . urlencode($filePath);
             $fileType = "Directory";
         } else {
-            $filelink = htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8');
+            $filenewPath = strstr($filePath, '/users');
+            $filelink = htmlspecialchars($filenewPath, ENT_QUOTES, 'UTF-8');
             $ext = pathinfo($fileName, PATHINFO_EXTENSION);
             $fileTypeMap = [
                 'txt' => 'Text File',

@@ -11,7 +11,7 @@ $baseDir = realpath(__DIR__ . "/users/$username");
 
 $currentdir = isset($_GET['dir']) ? realpath($_GET['dir']) : $baseDir;
 
-if ($currentdir === false || strpos($currentdir, $baseDir) !== 0) {
+if (strpos($currentdir, $baseDir) !== 0) {
     exit("Invalid directory.");
 }
 

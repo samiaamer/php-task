@@ -53,5 +53,11 @@
         "sex": "male",
         "checkbox": "english",
         "about": "testing"
+    },
+    {
+        "username": "ahmad",
+        "password": "$2y$10$QhCXE2peSiXsooXs3P6WauR.uVmZxyGt2DMpBHlgMvlxD\/CqLTpE6",
+        "country": "jordan",
+        "email": "ahmad@ex.com"
     }
 ]
