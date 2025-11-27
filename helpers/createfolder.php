@@ -6,7 +6,7 @@ $currentdir = rtrim($_POST['currentdir'], '/');
 $folderName = trim($_POST['createFolder']);
 
 if ($folderName === "") {
-    exit("Folder name can't be empty");
+    exit("<script>alert ('Folder name can't be empty.')</script>");
 }
 
 $folder = $currentdir . '/' . $folderName;
@@ -17,8 +17,8 @@ if (!file_exists($folder)) {
         header("Location: ../index.php?dir=" . urlencode($currentdir));
         exit();
     } else {
-        exit("Failed to create directory.");
+        exit("<script>alert ('Failed to create directory.')</script>");
     }
 } else {
-    exit("Folder already exists.");
+    exit("<script>alert ('Folder already exists.')</script>");
 }

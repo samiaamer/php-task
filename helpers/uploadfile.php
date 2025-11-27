@@ -20,7 +20,9 @@ if (isset($_FILES['uploadedFile'])) {
             header("Location: ../index.php?dir=" . urlencode($currentdir));
             exit();
         }
-    }
-    echo "error uploading file<br>";
+    }else
+    
+    echo "<script>alert ('error uploading file')</script>";
+    // header("Location: ../index.php?dir=" . urlencode($currentdir));
     exit();
 }
