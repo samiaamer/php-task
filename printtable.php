@@ -32,10 +32,14 @@ function printingtable()
             $filelink = htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8');
             $ext = pathinfo($fileName, PATHINFO_EXTENSION);
             $fileTypeMap = [
-                'txt' => 'Text File', 'png' => 'Image / PNG', 'jpg' => 'Image / JPG',
-                'svg' => 'Image / SVG', 'gif' => 'Image / GIF', 'ico' => 'Icon',
-                'html' => 'HTML File', 'php' => 'PHP File', 'css' => 'CSS File',
-                'js' => 'JavaScript File', 'pdf' => 'PDF File', 'zip' => 'ZIP Archive'
+                'txt' => 'Text File',
+                'png' => 'Image / PNG',
+                'jpg' => 'Image / JPG',
+                'svg' => 'Image / SVG',
+                'gif' => 'Image / GIF',
+                'ico' => 'Icon',
+                'pdf' => 'PDF File',
+                'zip' => 'ZIP Archive'
             ];
             $fileType = $fileTypeMap[$ext] ?? strtoupper($ext) . ' File';
         }
@@ -56,15 +60,15 @@ function printingtable()
 }
 ?>
 <script>
-function deleteFile(filePath, btn) {
-    if(!confirm('Are you sure you want to delete this file/folder?')) return;
+    function deleteFile(filePath, btn) {
+        if (!confirm('Are you sure you want to delete this file/folder?')) return;
 
-    fetch('delete.php?filetodelete=' + encodeURIComponent(filePath))
-        .then(res => res.text())
-        .then(msg => {
-            alert(msg); // optional: replace with a nicer notification
-            btn.closest('tr').remove(); // remove the row instantly
-        })
-        .catch(err => alert('Error: ' + err));
-}
+        fetch('helpers/delete.php?filetodelete=' + encodeURIComponent(filePath))
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                btn.closest('tr').remove();
+            })
+            .catch(err => alert('Error: ' + err));
+    }
 </script>

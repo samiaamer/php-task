@@ -8,13 +8,25 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+.loginForm {
+  width: 70%;
+}
+
+.form-group {
+  padding: 10px;
+}
+
 .container {
   background-color: #f7f4f4;
-
+  width: 70%;
+  margin: 30px;
 }
 
 .loginbox {
   float: right;
+  top: 0;
+  left: 50%;
+  height: 100%;
   width: auto;
   color: #8a8a8a;
 }
@@ -24,10 +36,10 @@ form {
   align-items: left;
   justify-content: center;
   flex-direction: column;
-  height: auto;
+  height: 100%;
   text-align: left;
-  width: auto;
-  
+  width: 100%;
+  margin: 50px 0px;
 }
 
 button {
@@ -45,6 +57,27 @@ button {
   width: 40%;
   height: 100%;
   color: white;
+}
+
+.check {
+  margin-top: 40px;
+}
+
+.loginbox {
+  float: right;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  padding-right: 100px;
+  color: #686767;
+}
+
+input {
+  background-color: #f7f4f4;
+  border: none;
+  border-bottom: 1px solid gray;
+  color: #4b4b4b;
 }
 
 h2,

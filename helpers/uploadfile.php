@@ -17,7 +17,7 @@ if (isset($_FILES['uploadedFile'])) {
 
         if (move_uploaded_file($fileTmpPath, $dest)) {
 
-            header("Location: index.php?dir=" . urlencode($currentdir));
+            header("Location: ../index.php?dir=" . urlencode($currentdir));
             exit();
         }
     }

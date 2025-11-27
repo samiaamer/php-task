@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: white;
   display: flex;
   align-items: center;
@@ -6,7 +6,7 @@ body {
   flex-direction: column;
   height: 100vh;
   font-family: "Courier New", Courier, monospace;
-}
+} */
 
 .loginForm {
   width: 70%;
@@ -16,7 +16,7 @@ body {
   padding: 10px;
 }
 
-h2,
+/* h2,
 p {
   margin: 15px 60px 15px 60px;
 }
@@ -29,7 +29,7 @@ p {
 h2 {
   padding-top: 70px;
   font-size: xx-large;
-}
+} */
 
 form {
   display: flex;

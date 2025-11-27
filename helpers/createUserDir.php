@@ -13,7 +13,7 @@ function createUserdir()
             return true;
         } else {
             echo "Failed to create directory: " . $user_dir;
-            header('Location: index.php');
+            header('Location: ../index.php');
             exit();
             return false;
         }

@@ -1,5 +1,5 @@
 <?php
-require("login.class.php");
+require("classes/login.class.php");
 
 if (isset($_POST['submit'])) {
     $user = new LoginUser($_POST['username'], $_POST['password']);
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <div class="container">`
+    <div class="container">
         <div class="row">
             <div class="col-md-4 left-box bg-primary" style="height: auto;">
                 <h2>Sign Up</h2>

@@ -2,7 +2,7 @@
 session_start();
 $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
-include 'createUserDir.php';
+include 'helpers/createUserDir.php';
 include 'printtable.php';
 
 if (!isset($_SESSION['user'])) {
@@ -10,17 +10,12 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-// Absolute path to user's base directory
 $baseDir = realpath(__DIR__ . "/users/$username");
 
-// If dir not provided, default to baseDir
 if (!isset($_GET['dir'])) {
     $currentdir = $baseDir;
 } else {
-    // Resolve requested path to absolute
     $requested = realpath($_GET['dir']);
-
-    // If invalid OR outside user's folder → force back to base
     if ($requested === false || strpos($requested, $baseDir) !== 0) {
         $currentdir = $baseDir;
     } else {
@@ -79,13 +74,13 @@ createUserdir();
                     File Manager
                 </h1>
                 <div class="col-md-4">
-                    <form action="uploadfile.php" method="POST" enctype="multipart/form-data">
+                    <form action="helpers/uploadfile.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <label for="fileUpload">Choose a file to upload:</label>
                         <input type="file" name="uploadedFile" id="fileUpload">
                         <button type="submit" name="uploadedFile">Upload</button>
                     </form><br>
-                    <form action="createfolder.php" method="POST" enctype="multipart/form-data">
+                    <form action="helpers/createfolder.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="currentdir" value="<?= htmlspecialchars($currentdir) ?>">
                         <input type="text" name="createFolder" id="createFolder">
                         <input class="btn btn-primary btn-lg m-2" type="submit" value="Create Folder">

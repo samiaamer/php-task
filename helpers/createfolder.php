@@ -14,7 +14,7 @@ $folder = $currentdir . '/' . $folderName;
 if (!file_exists($folder)) {
     if (mkdir($folder, 0777, true)) {
         chmod($folder, 0777);
-        header("Location: index.php?dir=" . urlencode($currentdir));
+        header("Location: ../index.php?dir=" . urlencode($currentdir));
         exit();
     } else {
         exit("Failed to create directory.");

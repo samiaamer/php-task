@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
 
 <head>
     <title>signup</title>
-    <link rel="stylesheet" href="styles/style1.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet" />
@@ -71,48 +71,24 @@ if (isset($_POST['submit'])) {
                             <option>qatar</option>
                             <option>egypt</option>
                         </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="email">Email:</label>
-                    <input
-                        id="email"
-                        name="email"
-                        class="email form-control"
-                        type="email"
-                        placeholder="email"
-                        required
-                        autocomplete="email" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Language:
-                        <label><input
-                                name="checkbox"
-                                type="checkbox"
-                                id="english"
-                                value="english" />
-                            English</label>
-                        <label>
+
+                        <div class="form-group">
+                            <label class="control-label" for="email">Email:</label>
                             <input
-                                name="checkbox"
-                                type="checkbox"
-                                id="nonEnglish"
-                                value="nonEnglish" />
-                            Non English</label>
-                    </label>
+                                id="email"
+                                name="email"
+                                class="email form-control"
+                                type="email"
+                                placeholder="email"
+                                required
+                                autocomplete="email" />
+                        </div>
+                        <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
+                        <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
+
+                        <input name="submit" type="submit" class="btn btn-primary" value="Signup">
+                    </form>or<a href="login.php"><button style="border: #686767;">login</button></a>
                 </div>
-
-                <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
-                <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
-
-                <button
-                    class="btn btn-primary"
-                    name="submit"
-                    type="submit"
-                    value="submit">
-                    Signup
-                </button>
-                </form>or<a href="login.php"><button style="border: #686767;">login</button></a>
-
             </div>
         </div>
     </div>
