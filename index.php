@@ -138,7 +138,23 @@ createUserdir();
             Created at trainging with Sprintive.
         </div>
     </footer>
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <img id="openImage" src="" class="ing-fluid w-100">
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
+        function openImage(src) {
+            document.getElementById('openImage').src = src;
+            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            modal.show();
+        }
+
+
         // document.addEventListener('DOMcontentLoaded', function() {
         //     const fileInput = document.getElementById('fileUpload');
         //     const uploadButton = document.getElementById('uploadedFile');

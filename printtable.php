@@ -15,6 +15,8 @@ function printingtable()
     $baseDir = realpath(__DIR__ . '/users/' . $username);
     $currentdir = isset($_GET['dir']) ? realpath($_GET['dir']) : $baseDir;
 
+    $projectRoot = "/php-task/";
+
     if ($currentdir === false || strpos($currentdir, $baseDir) !== 0) {
         $currentdir = $baseDir;
     }
@@ -22,57 +24,19 @@ function printingtable()
     $allFiles = displaytable($currentdir);
 
     foreach ($allFiles as $file) {
+
         $fileName = basename($file);
         $filePath = str_replace('\\', '/', realpath($file));
 
+        $relative = strstr($filePath, 'users');
+
         if (is_dir($file)) {
-            $filenewPath = strstr($filePath, 'users');
-            $filelink = 'index.php?dir=' . urlencode($filenewPath);
 
+            $filelink = "index.php?dir=" . urlencode($filePath);
             $fileType = "Directory";
-        } else {
-            $filenewPath = strstr($filePath, 'users');
-
-            $filelink = htmlspecialchars($filenewPath, ENT_QUOTES, 'UTF-8');
-
-            $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-            $fileTypeMap = [
-                'txt' => 'Text File',
-                'png' => 'Image / PNG',
-                'jpg' => 'Image / JPG',
-                'svg' => 'Image / SVG',
-                'gif' => 'Image / GIF',
-                'pdf' => 'PDF File',
-                'zip' => 'ZIP Archive'
-            ];
-            $fileType = $fileTypeMap[$ext] ?? strtoupper($ext) . ' File';
-        }
-
-        $fileDate = date('j / m / Y g:i A', filemtime($file));
-        // if ($fileType === 'Image / PNG' || $fileType === 'Image / JPG' || $fileType === 'Image / SVG' ||  $fileType === 'Image / GIF')
-        //     print("
-        //     <tr>
-        //         <td>
-        //             <div class='modal fade' role='dialog' tabindex='1'>
-        //                 <div class='modal-dialog'>
-        //                     <div class='modal-content'>
-        //                         <div class='modal-body'>
-        //                              <img src=$filelink alt=$fileName target='_new'/></td>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         <td>$fileType</td>
-        //         <td>$fileDate</td>
-        //         <td>
-        //             <button class='btn btn-danger' onclick=\"deleteFile('$filePath', this)\">Delete</button>
-        //         </td>
-        //     </tr>
-        //     ");
-        // else
-        print("
+            $fileDate = date('j / m / Y g:i A', filemtime($file));
+            print("
             <tr>
-              
                 <td><a href='$filelink'>$fileName</a></td>
                 <td>$fileType</td>
                 <td>$fileDate</td>
@@ -80,9 +44,41 @@ function printingtable()
                     <button class='btn btn-danger' onclick=\"deleteFile('$filePath', this)\">Delete</button>
                 </td>
             </tr>
-        ");
+            ");
+        } else {
+            $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            $fileType = strtoupper($ext) . " File";
+            $publicPath = $projectRoot . $relative;
+            $fileDate = date('j / m / Y g:i A', filemtime($file));
+
+            if (in_array($ext, ['png', 'jpg', 'jpeg', 'gif', 'svg'])) {
+
+                print("
+                <tr>
+                    <td><a href='#' onclick=\"openImage('$publicPath'); return false;\">$fileName</a></td>
+                    <td>$fileType</td>
+                     <td>$fileDate</td>
+                    <td>
+                        <button class='btn btn-danger' onclick=\"deleteFile('$filePath', this)\">Delete</button>
+                    </td>
+                </tr>
+                ");
+            } else {
+                print("
+                <tr>
+                    <td><a href='$publicPath' target='_blank'>$fileName</a></td>
+                    <td>$fileType</td>
+                    <td>$fileDate</td>
+                    <td>
+                        <button class='btn btn-danger' onclick=\"deleteFile('$filePath', this)\">Delete</button>
+                    </td>
+                </tr>
+                ");
+            }
+        }
     }
 }
+
 ?>
 <script>
     function deleteFile(filePath, btn) {
