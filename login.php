@@ -37,6 +37,12 @@ if (isset($_POST['submit'])) {
             <div class="col d-flex align-items-center justify-content-center text-center  loginbox">
                 <div class="loginForm">
                     <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
+                        <?php if (!empty($user->invalid_feedback)) : ?>
+                            <strong>
+                                <p class="text-danger"><?php echo $user->invalid_feedback; ?></p>
+                            </strong>
+                        <?php endif; ?>
+
                         <label for="username">Name:</label>
                         <input
                             id="username"
@@ -46,8 +52,7 @@ if (isset($_POST['submit'])) {
                             placeholder="username"
                             required
                             autocomplete="name" />
-                        <span id="nameErr" class="error text-danger"></span><br><br>
-
+                        <br>
                         <label for="password"> Password: </label>
                         <input
                             id="password"
@@ -57,11 +62,7 @@ if (isset($_POST['submit'])) {
                             placeholder="*********"
                             required
                             autocomplete="new-password" />
-                        <span id="passErr" class="error text-danger"></span><br><br>
-                        <?php if (!empty($user->invalid_feedback)) : ?>
-                            <p class="text-danger"><?php echo $user->invalid_feedback; ?></p>
-                        <?php endif; ?>
-
+                        <br>
                         <label style="font-size: x-small" for="agree">
                             <input
                                 type="checkbox"
@@ -70,10 +71,11 @@ if (isset($_POST['submit'])) {
                                 value="agree"
                                 required
                                 style="width: 10px" />
-                            I agree with the terms and conditions</label>
+                            I agree with the terms and conditions</label><br>
 
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
+                        
                         <input name="submit" type="submit" class="btn btn-primary" value="Login">
                     </form> or
                     <a href="signup.php"><button>signup</button></a>

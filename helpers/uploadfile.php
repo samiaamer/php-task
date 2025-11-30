@@ -21,8 +21,8 @@ if (isset($_FILES['uploadedFile'])) {
             exit("Folder added successfully");
         }
     } else {
-        // echo "error uploading file";
         header("Location: ../index.php?dir=" . urlencode($currentdir));
         exit("error uploading file");
     }
 }
+ 

@@ -47,7 +47,6 @@ function printingtable()
             if (in_array($ext, ['png', 'jpg', 'jpeg', 'gif', 'svg'])) {
                 $fileType = strtoupper($ext) . " / Image";
 
-                // echo "publisddcpath = " . $publicPath;
                 print("               
                 <tr>
                     <td><a href='#' onclick=\"openImage('$publicPath'); return false;\">$fileName</a></td>

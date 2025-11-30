@@ -11,7 +11,6 @@ if (!isset($_SESSION['user'])) {
 }
 
 $baseDir = realpath(__DIR__ . "/users/$username");
-// $currentdir = isset($_GET['dir']) ? realpath($_GET['dir']) : $baseDir;
 
 if (!isset($_GET['dir'])) {
     $currentdir = $baseDir;
@@ -154,21 +153,6 @@ createUserdir();
             const modal = new bootstrap.Modal(document.getElementById('imageModal'));
             modal.show();
         }
-
-
-        // document.addEventListener('DOMcontentLoaded', function() {
-        //     const fileInput = document.getElementById('fileUpload');
-        //     const uploadButton = document.getElementById('uploadedFile');
-        //     uploadButton.disabled = true;
-
-        //     fileInput.addEventListener('change', function() {
-        //         if (fileInput.value) {
-        //             button.removeAttribute('disabled');
-        //         }
-        //         else
-        //             uploadButton.disabled = true;
-        //     })
-        // });
     </script>
 </body>
 

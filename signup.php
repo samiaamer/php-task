@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col d-flex align-items-center justify-content-center text-center  loginbox">
                 <div class="loginForm">
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data" autocomplete>
                         <div class="form-group">
                             <label class="control-label" for="username">Name:</label>
                             <input
@@ -46,33 +46,6 @@ if (isset($_POST['submit'])) {
                                 required
                                 autocomplete="name" />
 
-                            <label class="control-label" for="password"> Password: </label>
-                            <input
-                                id="password"
-                                name="password"
-                                class="password form-control"
-                                type="password"
-                                placeholder="Password"
-                                required
-                                autocomplete="new-password" />
-                        </div>
-
-                        <label class="control-label" for="country">Country:</label>
-                        <select
-                            id="country"
-                            name="country"
-                            class="country"
-                            style="width: 70%; height: 25px"
-                            autocomplete="country"
-                            required>
-                            <option>country</option>
-                            <option>jordan</option>
-                            <option>ksa</option>
-                            <option>qatar</option>
-                            <option>egypt</option>
-                        </select>
-
-                        <div class="form-group">
                             <label class="control-label" for="email">Email:</label>
                             <input
                                 id="email"
@@ -82,9 +55,33 @@ if (isset($_POST['submit'])) {
                                 placeholder="email"
                                 required
                                 autocomplete="email" />
+                            <label class="control-label" for="password"> Password: </label>
+                            <input
+                                id="password"
+                                name="password"
+                                class="password form-control"
+                                type="password"
+                                placeholder="Password"
+                                required
+                                autocomplete="new-password" /><br>
+            
+                            <label class="control-label" for="country">Country:</label>
+                            <select
+                                id="country"
+                                name="country"
+                                class="country"
+                                style="width: 70%; height: 40px"
+                                require>
+                                <option>country</option>
+                                <option>jordan</option>
+                                <option>ksa</option>
+                                <option>qatar</option>
+                                <option>egypt</option>
+                            </select>
                         </div>
-                        <div class="invalid_feedback"><?php echo @$user->invalid_feedback ?></div>
-                        <div class="valid_feedback"><?php echo @$user->valid_feedback ?></div>
+
+                        <div class="invalid_feedback text-danger"><?php echo @$user->invalid_feedback ?></div>
+                        <div class="valid_feedback text-danger"><?php echo @$user->valid_feedback ?></div>
 
                         <input name="submit" type="submit" class="btn btn-primary" value="Signup">
                     </form>or<a href="login.php"><button style="border: #686767;">login</button></a>

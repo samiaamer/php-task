@@ -59,5 +59,17 @@
         "password": "$2y$10$QhCXE2peSiXsooXs3P6WauR.uVmZxyGt2DMpBHlgMvlxD\/CqLTpE6",
         "country": "jordan",
         "email": "ahmad@ex.com"
+    },
+    {
+        "username": "samianew",
+        "password": "$2y$10$ikI5YuhEfE08opX3Gc1SoOQ\/8XZ3H\/YxjP3CzzUCyitBL4X92MdN.",
+        "country": "jordan",
+        "email": "samianew@ex.com"
+    },
+    {
+        "username": "samia2",
+        "password": "$2y$10$J9q5Q8urBHJgUGxqVBDHZeCzbhpxA6Ewr\/tRMBCH2.X9KIyqgmkre",
+        "country": "jordan",
+        "email": "samia2@ex.com"
     }
 ]
