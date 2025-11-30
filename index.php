@@ -11,6 +11,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 $baseDir = realpath(__DIR__ . "/users/$username");
+// $currentdir = isset($_GET['dir']) ? realpath($_GET['dir']) : $baseDir;
 
 if (!isset($_GET['dir'])) {
     $currentdir = $baseDir;
